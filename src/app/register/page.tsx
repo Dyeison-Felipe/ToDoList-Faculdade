@@ -27,30 +27,40 @@ export default function Page() {
   }
 
   return (
-    <div>
-      <h1>ReactJS + Firebase</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 text-black">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-sm w-full">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Cadastre-se</h1>
 
-      <h2>Usuários</h2>
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-2">Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
+          />
+        </div>
 
-      <label>Email:</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        className="text-slate-950"
-      />
+        <div className="mb-6">
+          <label className="block text-gray-600 mb-2">Senha:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Senha"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
+          />
+        </div>
 
-      <label>Senha:</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Senha"
-        className="text-slate-950"
-      />
-
-      <button onClick={NewUser}>Cadastrar</button>
+        <button
+          onClick={NewUser}
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
+        >
+          Cadastrar
+        </button>
+      </div>
     </div>
+
   )
 }
