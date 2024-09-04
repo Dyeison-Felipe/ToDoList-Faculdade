@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "@/Lib/firebase-config";
+import { useRouter } from "next/navigation";
+
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -23,6 +25,8 @@ export default function Page() {
   const [validation, setValidation] = useState<"success" | "error" | null>(
     null
   );
+
+  const router = useRouter();
 
   async function loginUser(event: React.FormEvent) {
     event.preventDefault();
@@ -39,6 +43,8 @@ export default function Page() {
 
         setEmail("");
         setPassword("");
+
+        router.push("/")
       })
       .catch((error) => {
         setValidation("error");
