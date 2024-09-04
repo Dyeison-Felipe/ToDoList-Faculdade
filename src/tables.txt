@@ -1,0 +1,6 @@
+todo {
+  title: string;
+  description: string;
+  finished: boolean
+  userId: string
+}
