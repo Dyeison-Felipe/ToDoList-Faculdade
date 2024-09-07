@@ -1,5 +1,6 @@
+import { useAuth } from '@/hooks/useAuth';
 import { db } from '@/Lib/firebase-config';
-import { AddTodoFormData, Todo } from '@/types/todo';
+import { AddTodoFormData } from '@/types/todo';
 import { addTodoSchema } from '@/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addDoc, collection } from 'firebase/firestore';
@@ -22,6 +23,8 @@ export const useAddTodoModal = () => {
 
   const [isAddTodoModalOpen, setIsAddTodoModalOpen] = useState(false);
 
+  const { currentUser } = useAuth();
+
   const handleAddTodoClick = () => {
     setIsAddTodoModalOpen(true);
   };
@@ -35,19 +38,21 @@ export const useAddTodoModal = () => {
     async ({ title, description }) => {
       handleCloseTodoModal();
 
-      await addDoc(collection(db, 'todo'), {
-        title,
-        description,
-        finished: false,
-        userId: 'owrz3oLIPMecVysyu0A5kM27L7q2',
-      })
-        .then(() => {
-          alert('Cadastro realizado com sucesso!');
+      if (currentUser) {
+        await addDoc(collection(db, 'todo'), {
+          title,
+          description,
+          finished: false,
+          userId: currentUser.uid,
         })
-        .catch((error) => {
-          alert(error);
-          console.log(error);
-        });
+          .then(() => {
+            alert('Cadastro realizado com sucesso!');
+          })
+          .catch((error) => {
+            alert(error);
+            console.log(error);
+          });
+      }
     },
   );
 

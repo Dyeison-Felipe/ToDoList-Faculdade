@@ -2,7 +2,6 @@
 
 import { AddTodoModal } from '@/components/add-todo-modal';
 import FilePenIcon from '@/components/icons/file-pen-icon';
-import PlusIcon from '@/components/icons/plus-icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,41 +12,48 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useAuth } from '@/hooks/useAuth';
 import { db } from '@/Lib/firebase-config';
 import { Todo } from '@/types/todo';
-import { onSnapshot, collection } from 'firebase/firestore';
+import { onSnapshot, collection, query, where } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 
-export default function Home() {
+export default function Todos() {
   const [todos, setTodos] = useState<Todo[]>([]);
+
+  const { currentUser } = useAuth();
+
   useEffect(() => {
     const loadTodos = async () => {
-      onSnapshot(collection(db, 'todo'), (snapshot) => {
-        const todosArray: Todo[] = [];
-        snapshot.forEach((doc) => {
-          todosArray.push({
-            id: doc.id,
-            title: doc.data().title,
-            description: doc.data().description,
-            finished: doc.data().finished,
-            userId: doc.data().userId,
+      if (currentUser) {
+        const todosQuery = query(
+          collection(db, 'todo'),
+          where('userId', '==', currentUser.uid),
+        );
+
+        onSnapshot(todosQuery, (snapshot) => {
+          const todosArray: Todo[] = [];
+          snapshot.forEach((doc) => {
+            todosArray.push({
+              id: doc.id,
+              title: doc.data().title,
+              description: doc.data().description,
+              finished: doc.data().finished,
+              userId: doc.data().userId,
+            });
           });
+          setTodos(todosArray);
         });
-        setTodos(todosArray);
-      });
+      }
     };
     loadTodos();
-  }, []);
+  }, [currentUser]);
 
   return (
     <div className="container mx-auto py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Tarefas</h1>
         <AddTodoModal />
-        {/* <Button size="sm">
-          <PlusIcon className="mr-2 h-4 w-4" />
-          Adicionar Tarefa
-        </Button> */}
       </div>
       <div className="overflow-x-auto">
         <Table>
