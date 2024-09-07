@@ -14,9 +14,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import PlusIcon from '../icons/plus-icon';
 import { useAddTodoModal } from './use-add-todo-modal';
+import { Todo } from '@/types/todo';
 
-export function AddTodoModal() {
-  const addTodoModal = useAddTodoModal();
+type AddTodoModalProps = {
+  currentTodoUpdate: Todo | null;
+  onCloseTodoModal: () => void;
+};
+
+export function AddTodoModal({
+  currentTodoUpdate,
+  onCloseTodoModal,
+}: AddTodoModalProps) {
+  const addTodoModal = useAddTodoModal(currentTodoUpdate, onCloseTodoModal);
 
   return (
     <Dialog open={addTodoModal.isAddTodoModalOpen}>
@@ -63,7 +72,9 @@ export function AddTodoModal() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Adicionar</Button>
+            <Button type="submit">
+              {currentTodoUpdate ? 'Editar' : 'Adicionar'}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
