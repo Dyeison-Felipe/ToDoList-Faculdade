@@ -44,7 +44,7 @@ export default function Page() {
         setEmail("");
         setPassword("");
 
-        router.push("/")
+        router.push("/todo")
       })
       .catch((error) => {
         setValidation("error");
