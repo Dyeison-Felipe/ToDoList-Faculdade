@@ -1,4 +1,4 @@
-import { auth } from '@/Lib/firebase-config';
+import { auth } from '@/lib/firebase-config';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -22,5 +22,6 @@ export const useAuth = () => {
 
   return {
     currentUser,
+    setCurrentUser,
   };
 };

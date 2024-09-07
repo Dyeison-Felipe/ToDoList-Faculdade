@@ -3,7 +3,6 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -12,15 +11,14 @@ import { Button } from "@/components/ui/button";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { auth } from "@/Lib/firebase-config";
+import { auth } from "@/lib/firebase-config";
 import { useRouter } from "next/navigation";
 
 
-export default function Page() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(false);
-  const [detailsUser, setDetailsUser] = useState({});
   const [message, setMessage] = useState<string | null>(null);
   const [validation, setValidation] = useState<"success" | "error" | null>(
     null
@@ -36,15 +34,11 @@ export default function Page() {
         setMessage("Login executado com suceso");
         setValidation("success");
         setUser(true);
-        setDetailsUser({
-          uid: value.user.uid,
-          email: value.user.email,
-        });
 
         setEmail("");
         setPassword("");
 
-        router.push("/todo")
+        router.push("/todos")
       })
       .catch((error) => {
         setValidation("error");

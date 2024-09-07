@@ -1,5 +1,5 @@
 import { useAuth } from '@/hooks/useAuth';
-import { db } from '@/Lib/firebase-config';
+import { db } from '@/lib/firebase-config';
 import { AddTodoFormData, Todo } from '@/types/todo';
 import { addTodoSchema } from '@/validations/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';

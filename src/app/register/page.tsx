@@ -1,7 +1,8 @@
 "use client";
-import { auth } from "@/Lib/firebase-config";
+import { auth } from "@/lib/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Card,
@@ -14,11 +15,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function Page() {
+export default function Register() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string | null>(null);
   const [validation, setValidation] = useState<"success" | "error" | null>(null);
+
+  const router = useRouter();
 
   async function NewUser(event: React.FormEvent) {
     event.preventDefault();
@@ -29,6 +32,7 @@ export default function Page() {
         setPassword("");
         setValidation("success");
         setMessage("Usuário cadastrado com sucesso");
+        router.push("/todos")
       })
       .catch((error) => {
         if (error.code === "auth/weak-password") {

@@ -1,5 +1,5 @@
 import { useAuth } from '@/hooks/useAuth';
-import { db } from '@/Lib/firebase-config';
+import { db } from '@/lib/firebase-config';
 import { Todo } from '@/types/todo';
 import {
   query,
