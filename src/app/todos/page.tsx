@@ -1,6 +1,6 @@
 'use client';
 
-import { AddTodoModal } from '@/components/add-todo-modal';
+import { UpsertTodoModal } from '@/components/upsert-todo-modal';
 import FilePenIcon from '@/components/icons/file-pen-icon';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -32,7 +32,7 @@ export default function Todos() {
     <div className="mx-16 my-8 max-xl:mx-8 max-lg:mx-4 max-md:mx-2 max-lg:my-4">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Tarefas</h1>
-        <AddTodoModal
+        <UpsertTodoModal
           currentTodoUpdate={todos.currentTodoUpdate}
           onCloseTodoModal={todos.handleCloseTodoModal}
         />

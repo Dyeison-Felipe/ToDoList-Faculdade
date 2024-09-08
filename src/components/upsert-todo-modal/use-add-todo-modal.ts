@@ -7,7 +7,7 @@ import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export const useAddTodoModal = (
+export const useUpsertTodoModal = (
   currentTodoUpdate: Todo | null,
   onCloseTodoModal: () => void,
 ) => {

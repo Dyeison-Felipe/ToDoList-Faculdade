@@ -13,19 +13,19 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import PlusIcon from '../icons/plus-icon';
-import { useAddTodoModal } from './use-add-todo-modal';
+import { useUpsertTodoModal } from './use-add-todo-modal';
 import { Todo } from '@/types/todo';
 
-type AddTodoModalProps = {
+type UpsertTodoModalProps = {
   currentTodoUpdate: Todo | null;
   onCloseTodoModal: () => void;
 };
 
-export function AddTodoModal({
+export function UpsertTodoModal({
   currentTodoUpdate,
   onCloseTodoModal,
-}: AddTodoModalProps) {
-  const addTodoModal = useAddTodoModal(currentTodoUpdate, onCloseTodoModal);
+}: UpsertTodoModalProps) {
+  const addTodoModal = useUpsertTodoModal(currentTodoUpdate, onCloseTodoModal);
 
   return (
     <Dialog open={addTodoModal.isAddTodoModalOpen}>
